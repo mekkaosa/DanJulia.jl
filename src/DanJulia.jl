@@ -52,16 +52,17 @@ for S in 1.0:1.0:10.0
 end
 # calculer lerreur valeur absolue entre theta_estime et theta_vraie
 # et trace cette erreur en fct de S 
-using Plots
+using GLMakie
 errors = []
 S_values = 1.0:1.0:10.0
 for S in S_values
-
     theta_estime = p2(X, y, S)
     error = norm(theta_estime - theta_true, 1)
     push!(errors, error)
 end 
-# tracer cette erreur en fct de S
-plot(S_values, errors, xlabel="S", ylabel="Erreur (norme 1)", title="Erreur entre theta_estime et theta_vraie en fonction de S", legend=false)
-
+# tracer cette erreur en fct de S avec Makie
+fig = Figure()
+ax = Axis(fig[1, 1], xlabel="S", ylabel="Erreur (norme 1)", title="Erreur entre theta_estime et theta_vraie en fonction de S")
+lines!(ax, S_values, errors)
+fig
 end
